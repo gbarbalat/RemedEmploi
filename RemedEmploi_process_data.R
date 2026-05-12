@@ -440,6 +440,20 @@ table(df.full$Study_Wave, useNA = "always")
 table(df.full$Rando, useNA = "always")
 table(df.full$Study_Year, useNA = "always")
 
+#for CONSORT flowchart
+before_rand <- df.full.CONSORT %>% 
+  filter(BRAS=="")
+gtsummary::tbl_summary(before_rand %>% select(-StudySubjectID))
+
+allocation <- df.full.CONSORT %>% 
+  filter(BRAS!="")
+gtsummary::tbl_summary(allocation %>% select(-StudySubjectID), by = "BRAS")
+
+ltfu_I <- df.full.CONSORT %>%
+  left_join(df.full %>% select(StudySubjectID,RATIO_TOT), by="StudySubjectID") %>%
+  filter(is.na(RATIO_TOT))
+gtsummary::tbl_summary(ltfu_I %>% select(-StudySubjectID), by = "BRAS")
+
 # 1. Identify the periods you have (e.g., 1 to 6)
 n_periods <- 6 
 
