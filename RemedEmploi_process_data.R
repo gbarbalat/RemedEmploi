@@ -137,6 +137,10 @@ df.full %>%
 df.full$Inclusion[df.full$StudySubjectID %in% idpatwithoutbis] <- df.full$Rando[df.full$StudySubjectID %in% idpatwithoutbis] 
 df.full$Inclusion[df.full$StudySubjectID == "03016MA"] <- "2021-04-30" # pas de date de rando pour lui, on lui met la date de sa première venue
 
+#for CONSORT diagram
+df.full.CONSORT <- df.full %>% 
+  select(BRAS, SORTIE, ETAPE, MOTIF)
+
 # calcul du délai de l'embauche à l'ESAT
 # A NOTER : date EMBAUCHE 1970-12-05... erreur,
 #j'ai pris la date Entree_ESAT du fichier liste rando et supprimé la date du 1970-12-05 dans EMBAUCHE 
